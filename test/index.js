@@ -1,5 +1,5 @@
-const labarchives = require('../dist');
+const labarchives = require('../lib');
 
-test('testing works', () => {
+test('authentication', () => {
     expect(true).toBe(true);
 });
