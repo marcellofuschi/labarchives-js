@@ -10,7 +10,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.0"
+    "axios": "^0.19.0",
+    "domurl": "^2.2.0",
+    "hmacsha1": "^1.0.0"
   },
   "devDependencies": {
     "jest": "^24.8.0"
