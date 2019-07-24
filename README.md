@@ -1,9 +1,10 @@
 # LabArchives API wrapper for JavaScript
 
+Client for [LabArchives](https://labarchives.com)' API.
 Uses [Axios](https://github.com/axios/axios), which is Promise-based.
 
-This package is currently incomplete as it lacks support for most of the features that LabArchives offers through its API.
-Feel free to contribute by requesting or adding the functionalities you'd like to use.
+This package is currently incomplete as it lacks support for most of the options that LabArchives offers through its API.
+Feel free to contribute by requesting or implementing the functionalities you'd like to use.
 
 ## Installation
 
@@ -14,7 +15,7 @@ npm install labarchives-js
 
 ### User's figures retrieval
 
-Retrieve all of a user's image-type entries and get the thumbnail and attachment URL. 
+Retrieve all of a user's image entries and get URLs of thumbnails and attachments. 
 
 ```javascript
 const LabArchives = require('labarchives-js');
