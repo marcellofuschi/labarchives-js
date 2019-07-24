@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+    <fullname>James Earl Jones</fullname>
+    <id>285489257Ho's9^Lt4116011183268315271</id>
+    <auto-login-allowed type="boolean">true</auto-login-allowed>
+    <request>
+        <expires>1264451939000</expires>
+        <class>users</class>
+        <login-or-email>login name</login-or-email>
+        <sig>NszdrOeOs+83M44XcKh1xjtbonQ=</sig>
+        <method>user_access_info</method>
+        <akid>dfgdfgdfgdfg</akid>
+    </request>
+    <notebooks type="array">
+        <notebook>
+            <is-default type="boolean">true</is-default>
+
+            <name>James's notebook</name>
+            <id>MS4zfDEvMS9Ob3RlYm9va3wzLjM=</id>
+        </notebook>
+        <notebook>
+            <is-default type="boolean">false</is-default>
+            <name>James alternate notebook</name>
+            <id>NDQuMnwzNC8zNC9Ob3RlYm9va3wxMTIuMg==</id>
+        </notebook>
+        <notebook>
+            <is-default type="boolean">false</is-default>
+            <name>Notebook for James lab</name>
+            <id>NTMuM3w0MS80MS9Ob3RlYm9va3wxMzUuMw==</id>
+        </notebook>
+    </notebooks>
+</users>

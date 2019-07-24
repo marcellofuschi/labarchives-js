@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<search-tools>
+    <results>
+        <total-returned type="integer">4</total-returned>
+        <total-found type="integer">4</total-found>
+    </results>
+    <entries type="array">
+        <entry>
+            <eid>Ny44fC0xLzYvSW5ib3hFbnRyeVBhcnR8MTkuOA==</eid>
+            <tree-path>Inbox</tree-path>
+            <last-modified-verb>file uploaded via 3rd party app</last-modified-verb>
+            <updated-at type="datetime">2010-01-23T15:31:18Z</updated-at>
+
+            <attach-file-name>ral.gif</attach-file-name>
+            <attach-file-size type="integer">5662</attach-file-size>
+            <caption>James is testing adding this badboy</caption>
+            <part-type>Attachment</part-type>
+            <version type="integer">1</version>
+            <attach-content-type>image/gif</attach-content-type>
+
+            <last-modified-by>James E. Jones</last-modified-by>
+            <created-at type="datetime">2010-01-23T15:31:18Z</created-at>
+        </entry>
+        <entry>
+            <eid>Ni41fC0xLzUvSW5ib3hFbnRyeVBhcnR8MTYuNQ==</eid>
+            <tree-path>Inbox</tree-path>
+            <last-modified-verb>file uploaded via 3rd party app</last-modified-verb>
+
+            <updated-at type="datetime">2010-01-23T15:22:04Z</updated-at>
+            <attach-file-name>ral.gif</attach-file-name>
+            <attach-file-size type="integer">5662</attach-file-size>
+            <caption>James is testing adding this badboy</caption>
+            <part-type>Attachment</part-type>
+            <version type="integer">1</version>
+
+            <attach-content-type>image/gif</attach-content-type>
+            <last-modified-by>James E. Jones</last-modified-by>
+            <created-at type="datetime">2010-01-23T15:22:04Z</created-at>
+        </entry>
+        <entry>
+            <eid>ODUyNS40fDEvNjU1OC9FbnRyeVBhcnR8MjE2NDEuNA==</eid>
+            <tree-path>Project 3/New Page</tree-path>
+
+            <last-modified-verb>moved from inbox</last-modified-verb>
+            <updated-at type="datetime">2010-01-20T19:31:12Z</updated-at>
+            <attach-file-name>ral.gif</attach-file-name>
+            <attach-file-size type="integer">5662</attach-file-size>
+            <caption>James is testing adding this badboy</caption>
+            <part-type>Attachment</part-type>
+
+            <version type="integer">2</version>
+            <user-access>
+                <can-read-comments type="boolean">true</can-read-comments>
+                <can-write-comments type="boolean">true</can-write-comments>
+                <can-write type="boolean">true</can-write>
+                <can-read type="boolean">true</can-read>
+            </user-access>
+            <nbid>MS4zfDEvMS9Ob3RlYm9va3wzLjM=</nbid>
+            <attach-content-type>image/gif</attach-content-type>
+
+            <last-modified-by>James E. Jones</last-modified-by>
+            <created-at type="datetime">2010-01-20T19:28:30Z</created-at>
+        </entry>
+        <entry>
+            <eid>ODUyNC4xfDEvNjU1Ny9FbnRyeVBhcnR8MjE2MzguMQ==</eid>
+            <tree-path>Project 3/New Page</tree-path>
+            <last-modified-verb>moved from inbox</last-modified-verb>
+            <updated-at type="datetime">2010-01-20T19:29:06Z</updated-at>
+            <attach-file-name>ral.gif</attach-file-name>
+            <attach-file-size type="integer">5662</attach-file-size>
+            <caption>James is testing adding this badboy</caption>
+            <part-type>Attachment</part-type>
+            <version type="integer">2</version>
+            <user-access>
+                <can-read-comments type="boolean">true</can-read-comments>
+                <can-write-comments type="boolean">true</can-write-comments>
+                <can-write type="boolean">true</can-write>
+                <can-read type="boolean">true</can-read>
+            </user-access>
+            <nbid>MS4zfDEvMS9Ob3RlYm9va3wzLjM=</nbid>
+            <attach-content-type>image/gif</attach-content-type>
+            <last-modified-by>James E. Jones</last-modified-by>
+            <created-at type="datetime">2010-01-20T19:28:30Z</created-at>
+        </entry>
+    </entries>
+    <request>
+        <expires>1264457141000</expires>
+        <extension>gif,jpg,pdf</extension>
+        <class>search_tools</class>
+        <uid>285489257Ho's9^Lt4116011183268315271</uid>
+        <sig>cjw352jLu4mDMI3QJYUWWgh3eN8=</sig>
+        <user-access>can_read_write</user-access>
+        <max-to-return>5000</max-to-return>
+        <method>most_recently_modified_attachment_by_extension</method>
+        <akid>dfgdfgdfgdfgdf</akid>
+    </request>
+</search-tools>
