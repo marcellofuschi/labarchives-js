@@ -1,6 +1,6 @@
 {
   "name": "labarchives-js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "LabArchives API wrapper for JavaScript",
   "main": "lib/index.js",
   "scripts": {
