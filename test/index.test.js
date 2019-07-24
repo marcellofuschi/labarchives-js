@@ -1,33 +1,29 @@
-const LabArchivesClient = require('../lib');
+const LabArchives = require('../lib');
 const AxiosMockAdapter = require('axios-mock-adapter');
-const axiosMock = new AxiosMockAdapter(require('axios'));
+const qs = require('qs');
+
 const BASE_ENDPOINT = 'https://api.labarchives.com/api/';
+
+const axiosMock = new AxiosMockAdapter(require('axios'));
 let client;
 
 beforeEach(async () => {
-    client = new LabArchivesClient('akid', 'password');
+    client = new LabArchives({ accessKeyId: 'akid', accessPassword: 'password' });
     await mockAndCallLogin();
 });
 
 afterEach(() => { axiosMock.reset() });
 
 test('login request is made with correct parameters', async () => {
-    verifyIsCorrectLoginRequest(axiosMock.history.get[0]);
+    assertCorrectLoginRequest(axiosMock.history.get[0]);
 });
 
-test('the UID obtained with login is used for subsequent api calls', async () => {
-    await mockAndCallSomeRandomApiEndpoint();
-
-    expect(axiosMock.history.get.length).toBe(2);
-    expect(axiosMock.history.get[1].params).toHaveProperty('uid', '285489257Ho\'s9^Lt4116011183268315271');
-});
-
-test('list figure entry IDs', async () => {
-    await mockApi('attachment_search');
+test('list all the figure entry IDs', async () => {
+    await mockFigureAttachmentSearch();
 
     let entryIDs = await client.getFigureEntryIDs();
 
-    verifyIsCorrectFiguresRequest(axiosMock.history.get[1]);
+    assertCorrectFiguresRequest(axiosMock.history.get[1]);
     expect(entryIDs).toEqual([
         'Ny44fC0xLzYvSW5ib3hFbnRyeVBhcnR8MTkuOA==',
         'Ni41fC0xLzUvSW5ib3hFbnRyeVBhcnR8MTYuNQ==',
@@ -42,9 +38,10 @@ test('get URL of thumb image for attachment', () => {
     let parsedUrl = new URL(thumbUrl);
     expect(parsedUrl.href).toMatch(BASE_ENDPOINT + 'entries/entry_thumb');
     expect(parsedUrl.searchParams.get('eid')).toBe('myEntryID');
-    ['uid', 'akid', 'expires', 'sig'].forEach(param => {
-        expect(parsedUrl.searchParams.get(param)).not.toBeNull();
-    });
+    assertCorrectAuthenticationParams(
+        qs.parse(parsedUrl.searchParams.toString()),
+        'entry_thumb'
+    );
 });
 
 test("get URL of entry's attachment", () => {
@@ -53,66 +50,57 @@ test("get URL of entry's attachment", () => {
     let parsedUrl = new URL(attachmentUrl);
     expect(parsedUrl.href).toMatch(BASE_ENDPOINT + 'entries/entry_attachment');
     expect(parsedUrl.searchParams.get('eid')).toBe('myEntryID');
-    ['uid', 'akid', 'expires', 'sig'].forEach(param => {
-        expect(parsedUrl.searchParams.get(param)).not.toBeNull();
-    });
+    assertCorrectAuthenticationParams(
+        qs.parse(parsedUrl.searchParams.toString()),
+        'entry_attachment'
+    );
 });
 
 async function mockAndCallLogin() {
-    await mockApi('user_access_info');
+    axiosMock.onGet(BASE_ENDPOINT + 'users/user_access_info')
+        .reply(200, await loadTextFrom('fake_xml_responses/user_access_info.xml'));
+
     await client.login('user', 'pass');
 }
 
-function verifyIsCorrectLoginRequest(request) {
+function assertCorrectLoginRequest(request) {
     expect(request).toBeDefined();
     expect(request.params).toMatchObject({
         login_or_email: 'user',
         password: 'pass',
     });
-    verifyIsAuthenticated(request, 'user_access_info');
+    assertCorrectAuthenticationParams(request.params, 'user_access_info');
 }
 
-function verifyIsCorrectFiguresRequest(request) {
+async function mockFigureAttachmentSearch() {
+    axiosMock.onGet(BASE_ENDPOINT + 'search_tools/attachment_search')
+        .reply(200, await loadTextFrom('fake_xml_responses/attachment_search__figures.xml'));
+}
+
+function assertCorrectFiguresRequest(request) {
     expect(request).toBeDefined();
     expect(request.params).toHaveProperty('extension', 'jpg,jpeg,png,tiff,gif');
     expect(request.params).toHaveProperty('max_to_return', 5000);
-    verifyIsAuthenticated(request, 'attachment_search');
+    expect(request.params).toHaveProperty('uid');
+    assertCorrectAuthenticationParams(request.params, 'attachment_search');
 }
 
-function verifyIsAuthenticated(request, apiMethod) {
-    expect(request.params).toHaveProperty('akid', 'akid');
-    expect(request.params).toHaveProperty('expires');
-    expect(request.params).toHaveProperty('sig');
+function assertCorrectAuthenticationParams(params, apiMethod) {
+    expect(params).toHaveProperty('akid', 'akid');
+
+    expect(params).toHaveProperty('expires');
+
     const hmacsha1 = require('hmacsha1');
-    expect(request.params.sig).toBe(
-        hmacsha1('password', 'akid' + apiMethod + request.params.expires)
+    expect(params).toHaveProperty(
+        'sig',
+        hmacsha1('password', 'akid' + apiMethod + params.expires)
     );
 }
 
-async function mockAndCallSomeRandomApiEndpoint() {
-    await mockApi('attachment_search');
-    await client.getFigureEntryIDs();
-}
-
-async function mockApi(apiMethod) {
-    switch (apiMethod) {
-        case 'user_access_info':
-            axiosMock.onGet(BASE_ENDPOINT + 'users/user_access_info')
-                .reply(200, await loadTextFrom('fake_xml_responses/user_access_info.xml'));
-            break;
-        case 'attachment_search':
-            axiosMock.onGet(BASE_ENDPOINT + 'search_tools/attachment_search')
-                .reply(200, await loadTextFrom('fake_xml_responses/attachment_search__figures.xml'));
-            break;
-        default:
-            throw new Error('Tried to mock non-existing API endpoint');
-    }
-}
-
-async function loadTextFrom(relativePath) {
+async function loadTextFrom(filePath) {
     const fs = require('fs');
     return new Promise(resolve => {
-        fs.readFile(__dirname + '/' + relativePath, 'utf-8', (error, data) => {
+        fs.readFile(__dirname + '/' + filePath, 'utf-8', (error, data) => {
             resolve(data);
         });
     });

@@ -18,7 +18,10 @@ Retrieve all of a user's image-type entries and get the thumbnail and attachment
 
 ```javascript
 const LabArchives = require('labarchives-js');
-const client = new LabArchives('myAkid', 'myAccessPassword');
+const client = new LabArchives({
+    accessKeyId: 'myAkid',
+    accessPassword: 'myPassword',
+});
 
 async () => {
     await client.login('username', 'password');
