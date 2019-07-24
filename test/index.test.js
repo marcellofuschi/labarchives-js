@@ -69,19 +69,24 @@ function verifyIsCorrectLoginRequest(request) {
         login_or_email: 'user',
         password: 'pass',
     });
-    verifyIsAuthenticated(request);
+    verifyIsAuthenticated(request, 'user_access_info');
 }
 
 function verifyIsCorrectFiguresRequest(request) {
     expect(request).toBeDefined();
+    expect(request.params).toHaveProperty('extension', 'jpg,jpeg,png,tiff,gif');
     expect(request.params).toHaveProperty('max_to_return', 5000);
-    verifyIsAuthenticated(request);
+    verifyIsAuthenticated(request, 'attachment_search');
 }
 
-function verifyIsAuthenticated(request) {
+function verifyIsAuthenticated(request, apiMethod) {
     expect(request.params).toHaveProperty('akid', 'akid');
     expect(request.params).toHaveProperty('expires');
     expect(request.params).toHaveProperty('sig');
+    const hmacsha1 = require('hmacsha1');
+    expect(request.params.sig).toBe(
+        hmacsha1('password', 'akid' + apiMethod + request.params.expires)
+    );
 }
 
 async function mockAndCallSomeRandomApiEndpoint() {
