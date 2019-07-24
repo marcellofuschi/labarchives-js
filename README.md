@@ -13,6 +13,8 @@ Available from npm:
 npm install labarchives-js
 ```
 
+## Usage
+
 ### User's figures retrieval
 
 Retrieve all of a user's image entries and get URLs of thumbnails and attachments. 
